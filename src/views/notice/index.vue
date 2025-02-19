@@ -9,8 +9,8 @@
     placeholder="请输入公告"
   />
     </div>
-    <button class="saveAnnouncementInfo">保存</button>
-    <button class="deleteAnnouncementInfo">取消</button>
+    <button class="saveAnnouncementInfo" @click="sendAnnouncement(textareaAnnouncement,[],0)">保存</button>
+    <button class="deleteAnnouncementInfo" @click="clearAnnouncement">取消</button>
 
     <div class="workAnnouncement">工作室介绍</div>
     <div class="workAnnouncementContainer">
@@ -70,7 +70,8 @@
 </template>
 
 <script setup >
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { sendNotice } from '../../api/sendNotice';
   const buttons = [
     { key:0,type: 'primary', text: '前端' },
     { key:1,type: 'primary', text: '后台' },
@@ -88,6 +89,24 @@ import { ref } from 'vue';
   const handleAdd=()=>{
       isShowAddContainer.value=true
       danmakuInputs.value.push({ content: '' })
+  }
+  const sendAnnouncement=async(notice,receivers,type)=>{
+    localStorage.setItem('announcement', textareaAnnouncement.value);
+      const res=await sendNotice(notice,receivers,type)
+      console.log(res);
+      
+  }
+  onMounted(()=>{
+    const savedAnnouncement = localStorage.getItem('announcement');
+      if (savedAnnouncement) {
+        textareaAnnouncement.value = savedAnnouncement;
+      }
+  })
+
+  const clearAnnouncement=()=>{
+    textareaAnnouncement.value=''
+    localStorage.removeItem('announcement');
+
   }
 </script>
 <style lang="less" scoped>
@@ -139,6 +158,7 @@ border: 0;
     display: flex;
   gap: 20px;
   align-items: flex-end; 
+  margin-bottom: 20px;
   }
 
   .danmaku-input {

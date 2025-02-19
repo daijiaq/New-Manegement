@@ -22,7 +22,8 @@ http.interceptors.request.use(config => {
     // 统一错误提示
     ElMessage({
       type: 'warning',
-      message: e.response.data.msg
+      // message: e.response.data.msg
+      message:e.response
     })
   
    
