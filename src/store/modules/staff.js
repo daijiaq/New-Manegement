@@ -1,21 +1,21 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
-import { ref, reactive } from "vue";
 
-export const useGroupStore = defineStore("group", () => {
-  const tableData = reactive([]);
-
+export const staffDetailStore = defineStore("staffDetail", () => {
   //选择的方向代表的数字
-  const directionNum = ref(-1);
+  const directionNum = ref(0);
   const directionName = ref("");
   //选择的轮次
-  const turnNum = ref(-1);
+  const turnNum = ref(0);
   const turnName = ref("");
 
+  const status = ref(-1);
+
   return {
-    tableData,
     directionNum,
     directionName,
     turnNum,
     turnName,
+    status,
   };
 });

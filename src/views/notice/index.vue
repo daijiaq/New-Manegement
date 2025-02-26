@@ -179,58 +179,72 @@ import { ElMessage } from 'element-plus'
   }
 </script>
 <style lang="less" scoped>
-.announcement{
-    // margin-top: 60px;
-    font-size: 22px;
+.announcement {
+  // margin-top: 60px;
+  font-size: 22px;
 }
-.workAnnouncement,.danmaku,.direction{
-    font-size: 22px;
-    margin-top: 20px;
+.workAnnouncement,
+.BulletComment,
+.direction {
+  font-size: 22px;
+  margin-top: 20px;
 }
-.groups{
-    margin-top: 20px;
-  }
+.groups {
+  margin-top: 20px;
+}
 
-  .dierctionContainer,.announcementContainer,.workAnnouncementContainer,.danmakuContainer{
-    margin-top: 30px;
-  }
-  .danmakuContainer{
-    width: 100%;
-  }
-  .saveDirectionInfo,.deleteDirectionInfo, .saveAnnouncementInfo,.deleteAnnouncementInfo,.saveworkAnnouncementInfo,.deleteworkAnnouncementInfo,.saveDanmakuInfo,.deleteDanmakuInfo{
-    width: 60px;
-    height: 35px;
-    margin-left: 12px;
-    margin-top: 12px;
-    border-radius: 30px;
-    background-color: rgb(121.3, 187.1, 255);
-    border: 0;
-  }
-  .saveDirectionInfo,.saveAnnouncementInfo,.saveworkAnnouncementInfo,.saveDanmakuInfo{
-    margin-left: 468px;
-  }
-  
-  .saveDanmakuInfo{
-    margin-left: -3px;
+.directionContainer,
+.announcementContainer,
+.workAnnouncementContainer,
+.BulletCommentContainer {
+  margin-top: 30px;
+}
+.BulletCommentContainer {
+  width: 100%;
+}
+.saveDirectionInfo,
+.deleteDirectionInfo,
+.saveAnnouncementInfo,
+.deleteAnnouncementInfo,
+.saveWorkAnnouncementInfo,
+.deleteWorkAnnouncementInfo,
+.saveBulletCommentInfo,
+.deleteBulletCommentInfo {
+  width: 60px;
+  height: 35px;
+  margin-left: 12px;
+  margin-top: 12px;
+  border-radius: 30px;
+  background-color: rgb(121.3, 187.1, 255);
+  border: 0;
+}
+.saveDirectionInfo,
+.saveAnnouncementInfo,
+.saveWorkAnnouncementInfo,
+.saveBulletCommentInfo {
+  margin-left: 468px;
+}
 
-  }
+.saveBulletCommentInfo {
+  margin-left: -3px;
+}
 
-  .addDanmaku{
-    width: 69px !important;
-    height: 28px;
-    background-color: rgb(121.3, 187.1, 255);
-border-radius: 35px;
-border: 0;
-  }
+.addBulletComment {
+  width: 69px !important;
+  height: 28px;
+  background-color: rgb(121.3, 187.1, 255);
+  border-radius: 35px;
+  border: 0;
+}
 
-  .top{
-    display: flex;
+.top {
+  display: flex;
   gap: 20px;
-  align-items: flex-end; 
+  align-items: flex-end;
   margin-bottom: 20px;
-  }
+}
 
-  .danmaku-input {
+.BulletComment-input {
   width: 100%;
   // margin-bottom: 20px; 
 }
