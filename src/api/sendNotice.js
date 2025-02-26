@@ -10,3 +10,12 @@ export const sendNotice= (content,receivers,type) => {
     }
     });
   }
+
+
+  export const getNotice= (type) => {
+    return http({
+      url: `/notice/admin/getNotice/${type}`,
+      method: 'GET'
+    });
+  }
+
