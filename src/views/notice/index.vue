@@ -273,10 +273,11 @@ const clearDanma = (index) => {
   background-color: rgb(121.3, 187.1, 255);
   border-radius: 35px;
   border: 0;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
-.top {
-  display: flex;
+
 .top {
   display: flex;
   gap: 20px;
@@ -284,7 +285,7 @@ const clearDanma = (index) => {
   align-items: flex-end;
   margin-bottom: 20px;
 }
-}
+
 
 .danmaku-input {
   width: 100%;
