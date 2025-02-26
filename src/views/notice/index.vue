@@ -214,10 +214,17 @@ const clearDanma = (index) => {
   // margin-top: 60px;
   font-size: 22px;
 }
+.announcement {
+  // margin-top: 60px;
+  font-size: 22px;
+}
 .workAnnouncement,
 .danmaku,
 .direction {
   font-size: 22px;
+  margin-top: 20px;
+}
+.groups {
   margin-top: 20px;
 }
 .groups {
@@ -270,9 +277,13 @@ const clearDanma = (index) => {
 
 .top {
   display: flex;
+.top {
+  display: flex;
   gap: 20px;
   align-items: flex-end;
+  align-items: flex-end;
   margin-bottom: 20px;
+}
 }
 
 .danmaku-input {
