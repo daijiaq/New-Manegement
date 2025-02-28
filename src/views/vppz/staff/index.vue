@@ -16,7 +16,7 @@
     <div class="lunci" v-for="(status, index) in lunciStatus" :key="index">
       <el-dropdown
         @visible-change="
-          (visible) => handleDropdownVisibleChange(visible, index)
+          (visible) => handleDropdownVisibleChange(visible, index, status)
         "
       >
         <span class="el-dropdown-link">
@@ -42,7 +42,7 @@
     stripe
     style="width: 90%"
     class="table-form"
-    height="180"
+    height="360"
   >
     <el-table-column
       prop="所属方向"
@@ -58,8 +58,9 @@
 </template>
 
 <script setup>
-import { ref, toRefs } from "vue";
+import { ref, toRefs, onBeforeMount } from "vue";
 import { staffDetailStore } from "../../../store/modules/staff";
+import { unifiedPaces } from "../../../api/unifiedPaces";
 let { directionNum, directionName, turnNum, turnName, status } = toRefs(
   staffDetailStore()
 );
@@ -71,11 +72,10 @@ const buttons = [
   { key: 3, type: "primary", text: "UI" },
   { key: 4, type: "primary", text: "深度学习" },
   { key: 5, type: "primary", text: "硬件" },
-  { key: 6, type: "primary", text: "所有组别" },
 ];
 
 const lunciStatus = ref(["面试", "第一轮考核", "第二轮考核", "第三轮考核"]);
-const allStatusTableData = [
+const allStatusTableData = ref([
   {
     所属方向: "前端",
     面试: "未开始",
@@ -97,18 +97,39 @@ const allStatusTableData = [
     第二轮考核: "未开始",
     第三轮考核: "未开始",
   },
-];
+  {
+    所属方向: "UI",
+    面试: "未开始",
+    第一轮考核: "未开始",
+    第二轮考核: "未开始",
+    第三轮考核: "未开始",
+  },
+  {
+    所属方向: "深度学习",
+    面试: "未开始",
+    第一轮考核: "未开始",
+    第二轮考核: "未开始",
+    第三轮考核: "未开始",
+  },
+  {
+    所属方向: "硬件",
+    面试: "未开始",
+    第一轮考核: "未开始",
+    第二轮考核: "未开始",
+    第三轮考核: "未开始",
+  },
+]);
 
-const ifShowFirstColumn = ref(false);
+const ifShowFirstColumn = ref(true);
 const getApplyInfo = (buttonKey, text) => {
   directionNum.value = buttonKey;
   directionName.value = text;
 
-  if (buttonKey == 6) {
-    ifShowFirstColumn.value = true;
-  } else {
-    ifShowFirstColumn.value = false;
-  }
+  // if (buttonKey == 6) {
+  //   ifShowFirstColumn.value = true;
+  // } else {
+  //   ifShowFirstColumn.value = false;
+  // }
 };
 
 //导航栏是否出现
@@ -119,22 +140,48 @@ const notStarted = async () => {
   status.value = 0;
   console.log(directionNum.value, turnNum.value, status.value);
   await updatePaceStarted(directionNum.value, turnNum.value, status.value);
+  await updateAllList();
 };
-const onGoing = () => {
+const onGoing = async () => {
   status.value = 1;
-  updatePaceStarted(directionNum.value, turnNum.value, status.value);
+  await updatePaceStarted(directionNum.value, turnNum.value, status.value);
+  await updateAllList();
 };
-const handleDropdownVisibleChange = (visible, index) => {
+const handleDropdownVisibleChange = (visible, index, status) => {
   if (visible) {
-    handleOpen(index);
+    handleOpen(index, status);
   } else {
     handleClose();
   }
 };
 // 打开下拉菜单
-const handleOpen = (index) => {
+const handleOpen = (index, status) => {
   turnNum.value = index;
+  turnName.value = status;
 };
+const updateAllList = async () => {
+  const res = await unifiedPaces();
+  for (const item of res.data) {
+    const targetIndex = item.target; // 获取 target 值
+    const direction = allStatusTableData.value[targetIndex]; // 找到对应的方向
+
+    // 更新面试状态
+    direction.面试 = item.interview === 1 ? "进行中" : "未开始";
+
+    // 更新第一轮考核状态
+    direction.第一轮考核 = item.statusOne === 1 ? "进行中" : "未开始";
+
+    // 更新第二轮考核状态
+    direction.第二轮考核 = item.statusTwo === 1 ? "进行中" : "未开始";
+
+    // 更新第三轮考核状态
+    direction.第三轮考核 = item.statusThree === 1 ? "进行中" : "未开始";
+  }
+};
+
+onBeforeMount(async () => {
+  await updateAllList();
+});
 
 // 关闭下拉菜单
 const handleClose = () => {
